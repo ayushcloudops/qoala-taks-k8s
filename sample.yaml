@@ -1,0 +1,22 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: cluster-qoala
+  region: ap-south-1
+
+nodeGroups:
+  - name: ng-1
+    instanceType: t3.medium
+    desiredCapacity: 1
+
+cloudWatch:
+    clusterLogging:
+        enableTypes: ["audit", "authenticator", "controllerManager"]
+
+# vpc:
+#   id: "vpc-07fc9b94415e74885"
+#   # subnets:
+#   #   public:
+#   #     ap-south-1c:
+#   #       id: "subnet-00fa9659bd72609bf"
