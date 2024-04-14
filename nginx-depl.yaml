@@ -5,10 +5,10 @@ metadata:
   labels:
     app: nginx
 spec:
-  replicas: 3
   selector:
     matchLabels:
       app: nginx
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -19,6 +19,16 @@ spec:
       labels:
         app: nginx
     spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - nginx
+            topologyKey: topology.kubernetes.io/zone
       containers:
       - name: nginx
         image: nginx:1.14.2
